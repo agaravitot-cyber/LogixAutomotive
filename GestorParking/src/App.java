@@ -26,6 +26,7 @@ public class App {
                 lector.nextLine();
                 int contrasena = lector.nextInt();
                 
+                //prueba 1
                 System.out.print(A1.getPass());
                 
                 while( contrasena != A1.getPass()){
