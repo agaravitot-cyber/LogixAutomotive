@@ -1,17 +1,22 @@
-# Compilados de Java
-/bin/
+
+# Carpetas generadas por Gradle
+/build/
+/.gradle/
+
+# Archivos compilados
 *.class
 
-# Configuración de VS Code
-.vscode/
-
-# Archivos temporales y logs
+# Logs y temporales
 *.log
 *.tmp
+*.swp
+
+# Configuración específica de IDE
+.vscode/
+>>>>>>> 7a0b01d (Integracion con gradle)
 
 # Archivos del sistema
 .DS_Store
 Thumbs.db
 
-#librerias de javafx
-/lib/javafx-sdk-26/
+>>>>>>> 7a0b01d (Integracion con gradle)
