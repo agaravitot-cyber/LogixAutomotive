@@ -6,4 +6,3 @@ Juan Esteban Martinez Marquez
 Sebastian Chisaba Cruz  
 Andres Felipe Garavito Tunjo  
 Juan Camilo Bocanegra Luna  
->>>>>>> 7a0b01d (Integracion con gradle)
