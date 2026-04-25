@@ -4,9 +4,7 @@ import parqueaderoapp.modelo.interfaces.Administracion;
 import parqueaderoapp.modelo.parqueadero.*;
 
 public class Administrador extends Empleado {
-    private Administracion parqueadero;
-
-    public Administrador(String nombreUser, int documentoUser, String emailUser, String pass) {
+    public Administrador(String nombreUser, long documentoUser, String emailUser, String pass) {
         super(nombreUser, documentoUser, emailUser, pass);
 
     }
