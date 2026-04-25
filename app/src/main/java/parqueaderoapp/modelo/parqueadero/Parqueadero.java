@@ -21,11 +21,9 @@ public class Parqueadero{
         agregarPlanta();
     }
 
-    @Override
     public void setTarifa(int n) {
         this.tarifa = n;
     }
-    @Override
     public void setNombre(String nuevoNombre) {
         this.nombreNegocio = nuevoNombre;
     }
