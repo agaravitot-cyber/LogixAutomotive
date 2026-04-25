@@ -7,8 +7,7 @@ import parqueaderoapp.modelo.interfaces.*;
 import parqueaderoapp.modelo.persona.Administrador;
 import parqueaderoapp.modelo.persona.Empleado;
 
-public class Parqueadero implements Administracion {
-    private static boolean existe = false;
+public class Parqueadero{
     private String nombreNegocio;
     private int tarifa;
     private List<Planta> plantas;
@@ -17,7 +16,6 @@ public class Parqueadero implements Administracion {
     public Parqueadero(int nTarifa, String nombre) {
         this.tarifa = nTarifa;
         this.nombreNegocio = nombre;
-        existe = true;
         plantas = new ArrayList<>();
         personal = new ArrayList<>();
         agregarPlanta();
@@ -52,26 +50,22 @@ public class Parqueadero implements Administracion {
         return plantas.get(indice);
     }
 
-    @Override
-    public void crearAdmin(int documento, String Nombre, String email, String contraseña) {
-        Administrador temp = new Administrador(Nombre, documento, email, contraseña);
+    public void crearAdmin(int documento, String Nombre, String email, String contrasena) {
+        Administrador temp = new Administrador(Nombre, documento, email, contrasena);
         personal.add(temp);
     }
 
-    @Override
     public void agregarEmpleado(int documento, String nombre, String email, String contrasena) {
         Empleado e = new Empleado(nombre, documento, email, contrasena);
         personal.add(e);
     }
 
-    @Override
     public void agregarPlanta() {
         int id = plantas.size() + 1;
         Planta nueva = new Planta(id);
         plantas.add(nueva);
     }
 
-    @Override
     public void eliminarPlanta(int indice) {
 
         if (indice >= 0 && indice < plantas.size()) {
@@ -80,7 +74,6 @@ public class Parqueadero implements Administracion {
             System.out.println("Índice inválido, no existe esa planta.");
         }
     }
-    @Override
     public void eliminarEmpleado(int indice){
         if (indice >= 0 && indice < plantas.size()) {
             plantas.remove(indice);
