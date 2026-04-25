@@ -5,10 +5,9 @@ public abstract class Persona {
     protected int documentoUser;
     protected String emailUser;
 
-    public Persona(String nombre, int documento, String email) {
+    public Persona(String nombre, int documento) {
         this.nombreUser = nombre;
         this.documentoUser = documento;
-        this.emailUser = email;
     }
 
     public abstract void generarRecibo();
