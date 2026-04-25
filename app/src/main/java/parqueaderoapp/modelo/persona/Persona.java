@@ -2,10 +2,10 @@ package parqueaderoapp.modelo.persona;
 
 public abstract class Persona {
     protected String nombreUser;
-    protected int documentoUser;
+    protected Long documentoUser;
     protected String emailUser;
 
-    public Persona(String nombre, int documento, String email) {
+    public Persona(String nombre, Long documento, String email) {
         this.nombreUser = nombre;
         this.documentoUser = documento;
         this.emailUser = email;
