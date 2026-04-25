@@ -4,7 +4,7 @@ public class Empleado extends Persona{
     protected String emailUser;
     protected String contrasena;
 
-    public Empleado(String nombreUser, Long documentoUser, String emailUser, String pass){
+    public Empleado(String nombreUser, long documentoUser, String emailUser, String pass){
         super(nombreUser, documentoUser);
         this.emailUser = emailUser;
         contrasena = pass;
