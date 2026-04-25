@@ -3,11 +3,15 @@ package parqueaderoapp.modelo.persona;
 public class Empleado extends Persona{
     protected String emailUser;
     protected String contrasena;
+    protected static Parqueadero parqueaderoApp;
 
     public Empleado(String nombreUser, long documentoUser, String emailUser, String pass){
         super(nombreUser, documentoUser);
         this.emailUser = emailUser;
         contrasena = pass;
+    }
+    public void setParqueadero(Parqueadero p){
+        parqueaderoApp = p;
     }
     public String getNombre(){
         return this.nombreUser;
