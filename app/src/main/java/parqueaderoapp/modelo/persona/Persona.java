@@ -3,7 +3,6 @@ package parqueaderoapp.modelo.persona;
 public abstract class Persona {
     protected String nombreUser;
     protected int documentoUser;
-    protected String emailUser;
 
     public Persona(String nombre, int documento) {
         this.nombreUser = nombre;
