@@ -1,6 +1,5 @@
 package parqueaderoapp.modelo.persona;
 
-import parqueaderoapp.modelo.interfaces.Administracion;
 import parqueaderoapp.modelo.parqueadero.*;
 
 public class Administrador extends Empleado {
@@ -12,5 +11,7 @@ public class Administrador extends Empleado {
     public void cambiarTarifa(Parqueadero parqueadero, int tarifa) {
         parqueadero.setTarifa(tarifa);
     }
-
+    public void agregarTrabajador(Parqueadero parqueadero, Empleado e){
+        parqueadero.agregar(e);
+    }
 }

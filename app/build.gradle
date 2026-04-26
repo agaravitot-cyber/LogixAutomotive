@@ -20,4 +20,7 @@ javafx {
     version = "21"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
+tasks.named('run') {
+    standardInput = System.in
+}
 

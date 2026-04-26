@@ -13,7 +13,4 @@ public abstract class Persona {
 
     public abstract void verMapa();
 
-    protected double calcFactura(int tarifa, int minutos) {
-        return tarifa * minutos;
-    }
 }

@@ -1,6 +1,10 @@
 package parqueaderoapp.control;
 import java.util.Scanner;
 
+import parqueaderoapp.modelo.parqueadero.Parqueadero;
+import parqueaderoapp.modelo.persona.Administrador;
+import parqueaderoapp.modelo.persona.Empleado;
+
 public class MenuAdministrador {
     private Scanner scanner;
     private Autenticacion autenticacion;
@@ -49,12 +53,17 @@ public class MenuAdministrador {
     private void mostrarOpciones() {
         int opcion;
         
+        Parqueadero p = new Parqueadero(0, "test");
+        Administrador admin = new Administrador("Johan", 1010965315, "alguien@gmail.com", "Admin123");
+
         do {
             System.out.println("\n=== MENÚ ADMINISTRADOR ===");
             System.out.println("1. Cambiar tarifas");
             System.out.println("2. Registrar trabajador");
             System.out.println("3. Cambiar contraseña");
-            System.out.println("4. Volver al menú principal");
+            System.out.println("4. Calcular cobro");
+            System.out.println("5. Ver lista de empleados");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             
             try {
@@ -64,13 +73,26 @@ public class MenuAdministrador {
                 switch (opcion) {
                     case 1:
                         System.out.println("\n--- CAMBIAR TARIFAS ---");
-                        System.out.println("Funcionalidad en desarrollo...");
+                        System.out.println("La tarifa actual es de: " + p.getTarifa());
+                        System.out.print("Por favor ingrese una nueva tarifa : ");
+                        int nuevaTarifa = Integer.parseInt(scanner.nextLine());
+                        admin.cambiarTarifa(p, nuevaTarifa);
+                        System.out.println("La nueva tarifa es de: " + p.getTarifa());
                         System.out.println("Presione Enter para continuar...");
                         scanner.nextLine();
                         break;
                     case 2:
                         System.out.println("\n--- REGISTRAR TRABAJADOR ---");
-                        System.out.println("Funcionalidad en desarrollo...");
+                        System.out.println("Ingrese los datos del nuevo empleado");
+                        System.out.print("Nombre: ");
+                        String nombre = scanner.nextLine();
+                        System.out.print("Documento: ");
+                        long documento  = Long.parseLong(scanner.nextLine());
+                        System.out.print("Email: ");
+                        String correo = scanner.nextLine();
+                        Empleado nuevo = new Empleado(nombre, documento, correo, "0000");
+                        admin.agregarTrabajador(p, nuevo);
+                        System.out.printf("Se genero el nuevo empleado: %n%s%nDocumento: %d%nEmail %s%n", nuevo.getNombre(),nuevo.getDocumento(), nuevo.getEmail());
                         System.out.println("Presione Enter para continuar...");
                         scanner.nextLine();
                         break;
@@ -78,6 +100,16 @@ public class MenuAdministrador {
                         cambiarContrasena();
                         break;
                     case 4:
+                        System.out.println("Ingrese el tiempo de estadia");
+                        int tiempo = Integer.parseInt(scanner.nextLine());
+                        System.out.println("El valor del cobro es de: " + p.calcFactura(tiempo));
+                        // Simplemente salimos del bucle, no creamos un nuevo MenuPrincipal
+                        break;
+                    case 5:
+                        for(Empleado e : p.getEmpleados()){
+                            System.out.printf("Empleado: %s%ndocumento: %d%ncorreo: %s%n", e.getNombre(),e.getDocumento(),e.getEmail());
+                        }
+                    case 6:
                         System.out.println("\nVolviendo al menú principal...");
                         // Simplemente salimos del bucle, no creamos un nuevo MenuPrincipal
                         break;
@@ -90,7 +122,7 @@ public class MenuAdministrador {
                 opcion = 0;
             }
             
-        } while (opcion != 4);
+        } while (opcion != 6);
     }
     
     private void cambiarContrasena() {

@@ -14,7 +14,6 @@ public class MenuPrincipal {
     
     public void ejecutar() {
         int opcion;
-        
         do {
             mostrarMenu();
             opcion = leerOpcion();

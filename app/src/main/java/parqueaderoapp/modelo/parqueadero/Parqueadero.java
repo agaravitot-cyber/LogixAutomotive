@@ -7,7 +7,7 @@ import parqueaderoapp.modelo.interfaces.*;
 import parqueaderoapp.modelo.persona.Administrador;
 import parqueaderoapp.modelo.persona.Empleado;
 
-public class Parqueadero{
+public class Parqueadero implements Gestionar<Planta>{
     private String nombreNegocio;
     private int tarifa;
     private List<Planta> plantas;
@@ -18,7 +18,7 @@ public class Parqueadero{
         this.nombreNegocio = nombre;
         plantas = new ArrayList<>();
         personal = new ArrayList<>();
-        agregarPlanta();
+        agregar(new Planta());
     }
 
     public void setTarifa(int n) {
@@ -40,10 +40,6 @@ public class Parqueadero{
         return plantas.size();
     }
 
-    public static boolean getEstado() {
-        return existe;
-    }
-
     public Planta getPlanta(int indice) {
         return plantas.get(indice);
     }
@@ -53,31 +49,31 @@ public class Parqueadero{
         personal.add(temp);
     }
 
-    public void agregarEmpleado(int documento, String nombre, String email, String contrasena) {
-        Empleado e = new Empleado(nombre, documento, email, contrasena);
+    public void agregar(Empleado e) {
         personal.add(e);
     }
 
-    public void agregarPlanta() {
-        int id = plantas.size() + 1;
-        Planta nueva = new Planta(id);
-        plantas.add(nueva);
+    @Override
+    public void agregar(Planta p) {
+        plantas.add(p);
+    }
+    @Override
+    public void quitar(Planta p) {
+        plantas.remove(p);
     }
 
-    public void eliminarPlanta(int indice) {
-
-        if (indice >= 0 && indice < plantas.size()) {
-            plantas.remove(indice);
-        } else {
-            System.out.println("Índice inválido, no existe esa planta.");
-        }
-    }
-    public void eliminarEmpleado(int indice){
+    public void quitar(int indice, List<Empleado> e){
         if (indice >= 0 && indice < plantas.size()) {
             plantas.remove(indice);
         } else {
             System.out.println("Índice inválido, no existe este empleado.");
         }
 
+    }
+    public List<Empleado> getEmpleados(){
+        return this.personal;
+    }
+    public double calcFactura(int minutos) {
+        return tarifa * minutos;
     }
 }

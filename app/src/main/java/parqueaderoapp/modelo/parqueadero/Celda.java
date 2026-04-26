@@ -1,3 +1,5 @@
+package parqueaderoapp.modelo.parqueadero;
+
 public class Celda {
     private boolean espacioCarro;
     private boolean espacioMoto;
@@ -9,7 +11,7 @@ public class Celda {
         this.espacioBici = false;
     }
 
-    public boolean ocupa(String tipoVehiculo) {
+    public boolean ocupado(String tipoVehiculo) {
         switch (tipoVehiculo.toLowerCase()) {
             case "carro":
                 if (!espacioCarro) {
@@ -37,4 +39,5 @@ public class Celda {
                 return false;
         }
     }
+    
 }

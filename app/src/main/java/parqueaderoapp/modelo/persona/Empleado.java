@@ -1,5 +1,7 @@
 package parqueaderoapp.modelo.persona;
 
+import parqueaderoapp.modelo.parqueadero.Parqueadero;
+
 public class Empleado extends Persona{
     protected String emailUser;
     protected String contrasena;
@@ -16,7 +18,7 @@ public class Empleado extends Persona{
     public String getNombre(){
         return this.nombreUser;
     }
-    public int getDocumento(){
+    public long getDocumento(){
         return this.documentoUser;
     }
     public String getPass(){

@@ -1,13 +1,26 @@
 package parqueaderoapp.modelo.parqueadero;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Planta {
-    private Map<String, Celda> MapaPlanta;
+import parqueaderoapp.modelo.interfaces.Gestionar;
 
-    public Planta(int id) {
-        this.MapaPlanta = new HashMap<>();
+public class Planta implements Gestionar<Celda>{
+    private List<Celda> celdas;
+
+    public Planta() {
+        this.celdas = new ArrayList<>();
+
+    }
+
+    @Override
+    public void agregar(Celda c){
+        celdas.add(c);
+    }
+
+    @Override 
+    public void quitar(Celda c){
+        celdas.add(c);
     }
 
 }
