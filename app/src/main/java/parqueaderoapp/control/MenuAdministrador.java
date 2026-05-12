@@ -63,9 +63,10 @@ public class MenuAdministrador {
             System.out.println("3. Cambiar contraseña");
             System.out.println("4. Calcular cobro");
             System.out.println("5. Ver lista de empleados");
-            System.out.println("6. Volver al menú principal");
+            System.out.println("6. Entrada vehiculo");
+            System.out.println("7. Salida vehiculo");
+            System.out.println("8. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
-            
             try {
                 opcion = scanner.nextInt();
                 scanner.nextLine();
@@ -109,9 +110,16 @@ public class MenuAdministrador {
                         for(Empleado e : p.getEmpleados()){
                             System.out.printf("Empleado: %s%ndocumento: %d%ncorreo: %s%n", e.getNombre(),e.getDocumento(),e.getEmail());
                         }
+                        break;
                     case 6:
+                        //Poner la entrada del vehiculo
+                        break;
+                    case 7:
+                        //Poner la salida del vehiculo
+                        break;
+                    case 8:
                         System.out.println("\nVolviendo al menú principal...");
-                        // Simplemente salimos del bucle, no creamos un nuevo MenuPrincipal
+                        
                         break;
                     default:
                         System.out.println("\n*** ERROR: Opción no válida ***\n");
