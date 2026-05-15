@@ -3,24 +3,47 @@ package parqueaderoapp.modelo.parqueadero;
 import java.util.ArrayList;
 import java.util.List;
 
-import parqueaderoapp.modelo.interfaces.Gestionar;
+public class Planta{
+    private ArrayList<Celda> celdas;
+    private int capacidad;
+    private boolean ocupado;
 
-public class Planta implements Gestionar<Celda>{
-    private List<Celda> celdas;
-
-    public Planta() {
+    public Planta(int capacidad) {
         this.celdas = new ArrayList<>();
-
+        this.capacidad = capacidad;
     }
 
-    @Override
-    public void agregar(Celda c){
+    public boolean pisoOcupado() {
+        return ocupado;
+    }
+
+    public int celdaLibre() {
+        int contador = 0;
+        for (Celda c : celdas) {
+            if (!c.isOcupada())
+                contador++;
+        }
+        return contador;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public boolean agregar(Celda c) {
+        if (celdas.size() == capacidad)
+            return false;
         celdas.add(c);
+        if (celdas.size() == capacidad)
+            ocupado = true;
+        return true;
     }
 
-    @Override 
-    public void quitar(Celda c){
-        celdas.add(c);
+    public void quitar(Celda c) {
+        celdas.remove(c);
     }
 
+    public ArrayList<Celda> listaCelda() {
+        return celdas;
+    }
 }

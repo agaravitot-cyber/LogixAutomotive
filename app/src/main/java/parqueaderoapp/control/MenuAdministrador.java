@@ -54,7 +54,7 @@ public class MenuAdministrador {
         int opcion;
         
         Parqueadero p = new Parqueadero(0, "test");
-        Administrador admin = new Administrador("Johan", 1010965315, "alguien@gmail.com", "Admin123");
+        Administrador admin = new Administrador("Johan", 1010965315, "alguien@gmail.com", "Admin123", p);
 
         do {
             System.out.println("\n=== MENÚ ADMINISTRADOR ===");
@@ -91,7 +91,7 @@ public class MenuAdministrador {
                         long documento  = Long.parseLong(scanner.nextLine());
                         System.out.print("Email: ");
                         String correo = scanner.nextLine();
-                        Empleado nuevo = new Empleado(nombre, documento, correo, "0000");
+                        Empleado nuevo = new Empleado(nombre, documento, correo, "0000", p);
                         admin.agregarTrabajador(p, nuevo);
                         System.out.printf("Se genero el nuevo empleado: %n%s%nDocumento: %d%nEmail %s%n", nuevo.getNombre(),nuevo.getDocumento(), nuevo.getEmail());
                         System.out.println("Presione Enter para continuar...");

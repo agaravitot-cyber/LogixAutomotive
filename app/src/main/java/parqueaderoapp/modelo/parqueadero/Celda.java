@@ -1,43 +1,44 @@
 package parqueaderoapp.modelo.parqueadero;
 
+import parqueaderoapp.modelo.vehiculo.Vehiculo;
+
 public class Celda {
-    private boolean espacioCarro;
-    private boolean espacioMoto;
-    private boolean espacioBici;
+    private boolean ocupado;
+    private Vehiculo vehiculo;
+    private final String tipoCelda;
+    private final String ubicacion;
 
-    public Celda() {
-        this.espacioCarro = false;
-        this.espacioMoto = false;
-        this.espacioBici = false;
+    public Celda(String tipo, String ubicacion) {
+        this.vehiculo = null;
+        this.ocupado = false;
+        this.tipoCelda = tipo;
+        this.ubicacion = ubicacion;
     }
 
-    public boolean ocupado(String tipoVehiculo) {
-        switch (tipoVehiculo.toLowerCase()) {
-            case "carro":
-                if (!espacioCarro) {
-                    espacioCarro = true;
-                    return true;
-                }
-                return false;
-
-            case "moto":
-                if (!espacioMoto) {
-                    espacioMoto = true;
-                    return true;
-                }
-                return false;
-
-            case "bici":
-                if (!espacioBici) {
-                    espacioBici = true;
-                    return true;
-                }
-                return false;
-
-            default:
-                System.out.println("Tipo de vehículo no válido");
-                return false;
-        }
+    public boolean asignar(Vehiculo v) {
+        if (vehiculo != null)
+            return false;
+        if (!v.getTipo().equalsIgnoreCase(tipoCelda))
+            return false;
+        this.vehiculo = v;
+        this.ocupado = true;
+        return true;
     }
-    
+
+    public void desocupar() {
+        this.vehiculo = null;
+        this.ocupado = false;
+    }
+
+    public boolean isOcupada() {
+        return ocupado;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
 }
