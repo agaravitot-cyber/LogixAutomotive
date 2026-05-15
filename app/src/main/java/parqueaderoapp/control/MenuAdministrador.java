@@ -107,7 +107,7 @@ public class MenuAdministrador {
                         break;
                     case 5:
                         for(Empleado e : p.getEmpleados()){
-                            System.out.printf("Empleado: %s%ndocumento: %d%ncorreo: %s%n", e.getNombre(),e.getDocumento(),e.getEmail());
+                            System.out.printf("Empleado: %s%ndocumento: %d%ncorreo: %s%n%n", e.getNombre(),e.getDocumento(),e.getEmail());
                         }
                     case 6:
                         System.out.println("\nVolviendo al menú principal...");
