@@ -12,7 +12,6 @@ import parqueaderoapp.modelo.parqueadero.*;
 */
 public class App {
     public static void main(String[] args) {
-        Application.launch(Ventana.class,args);
         Sistema sistema = new Sistema();
         sistema.iniciar();
     }

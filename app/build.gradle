@@ -1,6 +1,5 @@
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 repositories {
@@ -8,19 +7,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.openjfx:javafx-controls:21'
-    implementation 'org.openjfx:javafx-fxml:21'
+    implementation "org.openjfx:javafx-controls:21"
+    implementation "org.openjfx:javafx-fxml:21"
 }
 
 application {
-    mainClass = 'parqueaderoapp.control.App'
+    mainClass = 'parqueaderoapp.gui.Ventana'
 }
-
-javafx {
-    version = "21"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
-tasks.named('run') {
-    standardInput = System.in
-}
-

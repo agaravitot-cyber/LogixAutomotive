@@ -8,13 +8,12 @@ import parqueaderoapp.modelo.vehiculo.Vehiculo;
 public class Empleado extends Persona {
     protected String emailUser;
     protected String contrasena;
-    protected static Parqueadero parqueaderoApp;
 
     public Empleado(String nombreUser, long documentoUser, String emailUser, String pass, Parqueadero p) {
-        super(nombreUser, documentoUser);
+        super(nombreUser, documentoUser, p);
         this.emailUser = emailUser;
         contrasena = pass;
-        parqueaderoApp = p;
+        parqueadero = p;
     }
 
     public void registrarEntrada(Celda c, Vehiculo v) {
@@ -28,13 +27,13 @@ public class Empleado extends Persona {
     public void registroSalida(Vehiculo v) {
         v.registrarSalida();
         generarRecibo(v);
-        parqueaderoApp.buscarCelda(v).desocupar();
+        parqueadero.buscarCelda(v).desocupar();
     }
 
     @Override
     public void generarRecibo(Vehiculo v) {
-        double monto = parqueaderoApp.calcFactura(v);
-        parqueaderoApp.agregarRecibo(new Recibo(v, v.getConductor(), monto));
+        double monto = parqueadero.calcFactura(v);
+        parqueadero.agregarRecibo(new Recibo(v, v.getConductor(), monto));
     }
 
     public String getPass() {

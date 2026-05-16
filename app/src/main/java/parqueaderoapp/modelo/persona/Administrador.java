@@ -10,26 +10,26 @@ public class Administrador extends Empleado {
     }
 
     public void cambiarTarifa(int tarifa, String tipo) {
-        parqueaderoApp.setTarifa(tarifa, tipo);
+        parqueadero.setTarifa(tarifa, tipo);
     }
 
     public void agregarEmpleado(Empleado e) {
-        parqueaderoApp.agregarEmpleado(e);
+        parqueadero.agregarEmpleado(e);
     }
 
     public void quitarEmpleado(Empleado e){
-        parqueaderoApp.quitarEmpleado(e);
+        parqueadero.quitarEmpleado(e);
     }
 
     public void agregarPlanta(Planta p){
-        parqueaderoApp.agregarPlanta(p);
+        parqueadero.agregarPlanta(p);
     }
     public void agregarCelda(Planta p ,Celda c){
         p.agregar(c);
     }
 
     public void quitarPlanta(Planta p){
-        parqueaderoApp.quitarPlanta(p);
+        parqueadero.quitarPlanta(p);
     }
     public void quitarCelda(Planta p, Celda c){
         p.quitar(c);
@@ -37,7 +37,7 @@ public class Administrador extends Empleado {
 
     public double registroIngreso(){
         double total = 0;
-        for(Recibo r : parqueaderoApp.listaRecibo()){
+        for(Recibo r : parqueadero.listaRecibo()){
             total += r.getMonto();
         }
         return total;

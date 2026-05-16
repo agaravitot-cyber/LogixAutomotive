@@ -3,7 +3,9 @@ import java.util.Scanner;
 
 import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.persona.Administrador;
+import parqueaderoapp.modelo.persona.Cliente;
 import parqueaderoapp.modelo.persona.Empleado;
+import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
 public class MenuAdministrador {
     private Scanner scanner;
@@ -53,7 +55,7 @@ public class MenuAdministrador {
     private void mostrarOpciones() {
         int opcion;
         
-        Parqueadero p = new Parqueadero(0, "test");
+        Parqueadero p = new Parqueadero("test");
         Administrador admin = new Administrador("Johan", 1010965315, "alguien@gmail.com", "Admin123", p);
 
         do {
@@ -74,11 +76,11 @@ public class MenuAdministrador {
                 switch (opcion) {
                     case 1:
                         System.out.println("\n--- CAMBIAR TARIFAS ---");
-                        System.out.println("La tarifa actual es de: " + p.getTarifa());
+                        System.out.println("La tarifa actual es de: " + p.getTarifa("Carro"));
                         System.out.print("Por favor ingrese una nueva tarifa : ");
                         int nuevaTarifa = Integer.parseInt(scanner.nextLine());
-                        admin.cambiarTarifa(p, nuevaTarifa);
-                        System.out.println("La nueva tarifa es de: " + p.getTarifa());
+                        admin.cambiarTarifa(nuevaTarifa, "Carro");
+                        System.out.println("La nueva tarifa es de: " + p.getTarifa("Carro"));
                         System.out.println("Presione Enter para continuar...");
                         scanner.nextLine();
                         break;
@@ -92,7 +94,7 @@ public class MenuAdministrador {
                         System.out.print("Email: ");
                         String correo = scanner.nextLine();
                         Empleado nuevo = new Empleado(nombre, documento, correo, "0000", p);
-                        admin.agregarTrabajador(p, nuevo);
+                        admin.agregarEmpleado(nuevo);
                         System.out.printf("Se genero el nuevo empleado: %n%s%nDocumento: %d%nEmail %s%n", nuevo.getNombre(),nuevo.getDocumento(), nuevo.getEmail());
                         System.out.println("Presione Enter para continuar...");
                         scanner.nextLine();
@@ -103,7 +105,7 @@ public class MenuAdministrador {
                     case 4:
                         System.out.println("Ingrese el tiempo de estadia");
                         int tiempo = Integer.parseInt(scanner.nextLine());
-                        System.out.println("El valor del cobro es de: " + p.calcFactura(tiempo));
+                        System.out.println("El valor del cobro es de: " + p.calcFactura(new Vehiculo("abc123","Carro")));
                         // Simplemente salimos del bucle, no creamos un nuevo MenuPrincipal
                         break;
                     case 5:
