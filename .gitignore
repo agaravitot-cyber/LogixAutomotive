@@ -1,0 +1,8 @@
+#carpeta de compilacion
+/bin/
+#Dependencias de GUI
+*.jar
+*.so
+*.properties
+#configuracion vscode
+/.vscode/
