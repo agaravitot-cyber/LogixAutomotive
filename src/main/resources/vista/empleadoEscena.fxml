@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.gui.SecondController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.gui.SecondController">
    <children>
       <Label layoutX="143.0" layoutY="79.0" text="Soy la segunda ventana">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="regresoBtn" layoutX="269.0" layoutY="207.0" mnemonicParsing="false" onAction="#onBack" text="Button" />
+      <Button fx:id="regresoBtn" layoutX="258.0" layoutY="200.0" mnemonicParsing="false" onAction="#onBack" text="Button" />
    </children>
 </AnchorPane>

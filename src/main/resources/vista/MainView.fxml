@@ -5,13 +5,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.gui.inicioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.gui.inicioController">
    <children>
-      <Label layoutX="40.0" layoutY="59.0" text="Bienvenido a LogixAutomotive" textAlignment="CENTER">
+      <Label layoutX="192.0" layoutY="40.0" text="Bienvenido a " textAlignment="CENTER">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Button fx:id="clienteBtn" layoutX="269.0" layoutY="188.0" mnemonicParsing="false" onAction="#onLogin" text="Button" />
+      <Button fx:id="adminBtn" layoutX="436.0" layoutY="213.0" mnemonicParsing="false" onAction="#onAdmin" text="Administracion" wrapText="true" />
+      <Button fx:id="EmpleadoBtn" layoutX="260.0" layoutY="213.0" mnemonicParsing="false" onAction="#onEmpleado" text="Empleado" wrapText="true" />
+      <Button fx:id="clienteBtn1" layoutX="80.0" layoutY="213.0" mnemonicParsing="false" onAction="#onCliente" text="Cliente" wrapText="true" />
+      <Label layoutX="164.0" layoutY="105.0" text="LogixAutomotive" textAlignment="CENTER">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

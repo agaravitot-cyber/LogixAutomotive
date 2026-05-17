@@ -16,14 +16,13 @@ public class Parqueadero {
     private ArrayList<Empleado> personal;
     private ArrayList<Recibo> recibos;
 
-    public Parqueadero(String nombre) {
-        tarifaB = 0;
-        tarifaC = 0;
-        tarifaM = 0;
+    public Parqueadero(String nombre, int c, int m, int b) {
+        tarifaB = b;
+        tarifaC = c;
+        tarifaM = m;
         this.nombreNegocio = nombre;
         plantas = new ArrayList<>();
         personal = new ArrayList<>();
-        agregarPlanta(new Planta(10));
     }
 
     public void setTarifa(int n, String tipo) {
@@ -75,9 +74,8 @@ public class Parqueadero {
         return plantas.get(indice);
     }
 
-    public void crearAdmin(int documento, String Nombre, String email, String contrasena) {
-        Administrador temp = new Administrador(Nombre, documento, email, contrasena, this);
-        personal.add(temp);
+    public void crearAdmin(Administrador admin) {
+        personal.add(admin);
     }
 
     public boolean agregarRecibo(Recibo r) {

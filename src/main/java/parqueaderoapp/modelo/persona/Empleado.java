@@ -2,18 +2,16 @@ package parqueaderoapp.modelo.persona;
 
 import parqueaderoapp.modelo.estadisticas.Recibo;
 import parqueaderoapp.modelo.parqueadero.Celda;
-import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
 public class Empleado extends Persona {
     protected String emailUser;
     protected String contrasena;
 
-    public Empleado(String nombreUser, long documentoUser, String emailUser, String pass, Parqueadero p) {
-        super(nombreUser, documentoUser, p);
+    public Empleado(String nombreUser, long documentoUser, String emailUser, String pass) {
+        super(nombreUser, documentoUser);
         this.emailUser = emailUser;
         contrasena = pass;
-        parqueadero = p;
     }
 
     public void registrarEntrada(Celda c, Vehiculo v) {

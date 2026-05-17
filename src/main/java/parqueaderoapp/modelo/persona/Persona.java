@@ -7,12 +7,14 @@ public abstract class Persona {
     protected String nombreUser;
     protected final long documentoUser;
     protected Parqueadero parqueadero;
-    public Persona(String nombre, long documento, Parqueadero parqueadero) {
+    public Persona(String nombre, long documento) {
         this.nombreUser = nombre;
         this.documentoUser = documento;
-        this.parqueadero = parqueadero;
     }
 
+    public void setParqueadero(Parqueadero parqueadero){
+        this.parqueadero = parqueadero;
+    }
     public abstract void generarRecibo(Vehiculo v);
 
     public abstract void verMapa();

@@ -6,13 +6,11 @@ public class Celda {
     private boolean ocupado;
     private Vehiculo vehiculo;
     private final String tipoCelda;
-    private final String ubicacion;
 
-    public Celda(String tipo, String ubicacion) {
+    public Celda(String tipo) {
         this.vehiculo = null;
         this.ocupado = false;
         this.tipoCelda = tipo;
-        this.ubicacion = ubicacion;
     }
 
     public boolean asignar(Vehiculo v) {
@@ -36,9 +34,5 @@ public class Celda {
 
     public Vehiculo getVehiculo() {
         return vehiculo;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
     }
 }

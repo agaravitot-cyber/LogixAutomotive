@@ -2,14 +2,13 @@ package parqueaderoapp.modelo.persona;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
 public class Cliente extends Persona {
 
     private Vehiculo vehiculo;
-    public Cliente(String nombreUser, int documentoUser, Parqueadero p, Vehiculo vehiculo) {
-        super(nombreUser, documentoUser, p);
+    public Cliente(String nombreUser, int documentoUser, Vehiculo vehiculo) {
+        super(nombreUser, documentoUser);
         this.vehiculo = vehiculo;
     }
 

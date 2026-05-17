@@ -2,12 +2,11 @@ package parqueaderoapp.modelo.persona;
 
 import parqueaderoapp.modelo.estadisticas.Recibo;
 import parqueaderoapp.modelo.parqueadero.Celda;
-import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.parqueadero.Planta;
 
 public class Administrador extends Empleado {
-    public Administrador(String nombreUser, long documentoUser, String emailUser, String pass, Parqueadero p) {
-        super(nombreUser, documentoUser, emailUser, pass, p);
+    public Administrador(String nombreUser, long documentoUser, String emailUser, String pass) {
+        super(nombreUser, documentoUser, emailUser, pass);
 
     }
 
