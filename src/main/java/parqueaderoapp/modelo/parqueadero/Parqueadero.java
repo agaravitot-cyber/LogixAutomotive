@@ -23,6 +23,7 @@ public class Parqueadero {
         this.nombreNegocio = nombre;
         plantas = new ArrayList<>();
         personal = new ArrayList<>();
+        recibos = new ArrayList<>();
     }
 
     public void setTarifa(int n, String tipo) {
@@ -118,7 +119,7 @@ public class Parqueadero {
         if (p == null)
             return false;
 
-        plantas.add(p);
+        plantas.remove(p);
         return true;
     }
 
@@ -144,13 +145,24 @@ public class Parqueadero {
         return null;
     }
 
+    public Vehiculo buscarVehiculoPorPlaca(String placaIngresada) {
+        for (Planta p : plantas) {
+            for (Celda c : p.listaCelda()) {
+                if (c.isOcupada() && c.getVehiculo().getPlaca().equalsIgnoreCase(placaIngresada)) {
+                    return c.getVehiculo();
+                }
+            }
+        }
+        return null;
+    }
+
     public double calcFactura(Vehiculo v) {
 
         return ("Carro".equalsIgnoreCase(v.getTipo()) ? tarifaC
                 : "Moto".equalsIgnoreCase(v.getTipo()) ? tarifaM : tarifaB) * v.getEstadia();
     }
 
-    public ArrayList<Recibo> listaRecibo(){
+    public ArrayList<Recibo> listaRecibo() {
         return recibos;
     }
 }

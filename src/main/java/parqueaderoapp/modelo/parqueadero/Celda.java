@@ -23,6 +23,10 @@ public class Celda {
         return true;
     }
 
+    public String getTipoCelda() {
+        return tipoCelda;
+    }
+    
     public void desocupar() {
         this.vehiculo = null;
         this.ocupado = false;

@@ -13,7 +13,7 @@ public interface escenaGenericos {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/MainView.fxml"));
         Scene inicio = new Scene(loader.load());
         stage.setScene(inicio);
-        stage.setTitle("Menu Principal");
+        stage.setTitle("Gestor Parqueadero");
         stage.show();
     }
     default void campoNumerico(TextField field) {

@@ -14,11 +14,12 @@ public class Empleado extends Persona {
         contrasena = pass;
     }
 
-    public void registrarEntrada(Celda c, Vehiculo v) {
+    public boolean registrarEntrada(Celda c, Vehiculo v) {
         if (c.asignar(v)) {
             v.registroEntrada();
+            return true;
         } else {
-            System.out.println("Celda ocupada");
+            return false;
         }
     }
 
@@ -28,7 +29,6 @@ public class Empleado extends Persona {
         parqueadero.buscarCelda(v).desocupar();
     }
 
-    @Override
     public void generarRecibo(Vehiculo v) {
         double monto = parqueadero.calcFactura(v);
         parqueadero.agregarRecibo(new Recibo(v, v.getConductor(), monto));
@@ -42,7 +42,4 @@ public class Empleado extends Persona {
         return emailUser;
     }
 
-    @Override
-    public void verMapa() {
-    }
 }

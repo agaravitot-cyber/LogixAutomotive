@@ -36,7 +36,7 @@ public class Administrador extends Empleado {
         p.quitar(c);
     }
 
-    public double registroIngreso(){
+    public double registroIngresos(){
         double total = 0;
         for(Recibo r : parqueadero.listaRecibo()){
             total += r.getMonto();

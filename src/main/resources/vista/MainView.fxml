@@ -13,8 +13,8 @@
          </font>
       </Label>
       <Button fx:id="adminBtn" layoutX="436.0" layoutY="213.0" mnemonicParsing="false" onAction="#onAdmin" text="Administracion" wrapText="true" />
-      <Button fx:id="EmpleadoBtn" layoutX="260.0" layoutY="213.0" mnemonicParsing="false" onAction="#onEmpleado" text="Empleado" wrapText="true" />
-      <Button fx:id="clienteBtn1" layoutX="80.0" layoutY="213.0" mnemonicParsing="false" onAction="#onCliente" text="Cliente" wrapText="true" />
+      <Button fx:id="empleadoBtn" layoutX="260.0" layoutY="213.0" mnemonicParsing="false" onAction="#onEmpleado" text="Empleado" wrapText="true" />
+      <Button fx:id="clienteBtn" layoutX="80.0" layoutY="213.0" mnemonicParsing="false" onAction="#onCliente" text="Cliente" wrapText="true" />
       <Label layoutX="164.0" layoutY="105.0" text="LogixAutomotive" textAlignment="CENTER">
          <font>
             <Font size="34.0" />

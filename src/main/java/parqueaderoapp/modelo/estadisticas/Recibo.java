@@ -4,11 +4,10 @@ import parqueaderoapp.modelo.persona.Cliente;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
 public class Recibo {
-    private int  contador = 0;
+    private static int  contador = 0;
     private final String id;
     private final String placaCopia;
     private final String tipoCopia;
-    private final String nombreCliente;
     private final String documentoCliente;
     private final String fechaEntrada;
     private final String fechaSalida;
@@ -18,7 +17,6 @@ public class Recibo {
         this.id = generarId();
         this.placaCopia = v.getPlaca();
         this.tipoCopia = v.getTipo();
-        this.nombreCliente = c.getNombre();
         this.documentoCliente = c.getDocumento();
         this.fechaEntrada = v.getEntrada();
         this.fechaSalida = v.getSalida();
@@ -26,7 +24,7 @@ public class Recibo {
     }
 
     public String generarId(){
-        return Integer.toHexString(contador).toUpperCase();
+        return Integer.toHexString(contador++).toUpperCase();
     }
 
     public double getMonto() {
@@ -35,7 +33,7 @@ public class Recibo {
 
     public String generarTexto() {
         return "Recibo #" + id +
-               "\nCliente: " + nombreCliente + " (" + documentoCliente + ")" +
+               "\nCliente: " + "(" + documentoCliente + ")" +
                "\nVehículo: " + placaCopia + " - " + tipoCopia +
                "\nEntrada: " + fechaEntrada +
                "\nSalida: " + fechaSalida +

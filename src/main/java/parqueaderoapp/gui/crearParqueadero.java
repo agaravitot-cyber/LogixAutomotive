@@ -148,7 +148,7 @@ public class crearParqueadero implements escenaGenericos {
             int motos = celdasMoto.getValue();
             int bicis = celdasBici.getValue();
 
-            if (carros + motos + bicis > total) {
+            if (carros + motos + bicis != total) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Error en distribución");
                 alert.setContentText("En " + pane.getText() +

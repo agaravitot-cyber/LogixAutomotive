@@ -50,7 +50,7 @@ public class inicioController implements escenaGenericos {
             stage.setTitle("Registro Admin");
             stage.show();
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/OtraVista.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/loginEmpleado.fxml"));
             Scene nuevaEscena = new Scene(loader.load());
 
             Stage stage = (Stage) adminBtn.getScene().getWindow();
@@ -63,7 +63,7 @@ public class inicioController implements escenaGenericos {
     @FXML
     private void onCliente() throws Exception{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/OtraVista.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/clienteEscena.fxml"));
         Scene nuevaEscena = new Scene(loader.load());
 
         Stage stage = (Stage) clienteBtn.getScene().getWindow();

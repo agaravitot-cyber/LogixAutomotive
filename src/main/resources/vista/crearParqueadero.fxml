@@ -50,7 +50,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tarifaBext">
+            <TextField fx:id="tarifaBText">
                <VBox.margin>
                   <Insets left="100.0" right="100.0" top="10.0" />
                </VBox.margin>
@@ -107,7 +107,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="finBtn" mnemonicParsing="false" onAction="#onFinal" text="Finalizar">
+            <Button fx:id="finalizarBtn" mnemonicParsing="false" onAction="#onFinal" text="Finalizar">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

@@ -1,7 +1,6 @@
 package parqueaderoapp.modelo.persona;
 
 import parqueaderoapp.modelo.parqueadero.Parqueadero;
-import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
 public abstract class Persona {
     protected String nombreUser;
@@ -15,9 +14,6 @@ public abstract class Persona {
     public void setParqueadero(Parqueadero parqueadero){
         this.parqueadero = parqueadero;
     }
-    public abstract void generarRecibo(Vehiculo v);
-
-    public abstract void verMapa();
 
     public String getNombre() {
         return nombreUser;
