@@ -1,4 +1,4 @@
-package parqueaderoapp.control;
+package parqueaderoapp.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import parqueaderoapp.modelo.parqueadero.Parqueadero;
 
 public class App extends Application {
 
-    public static Parqueadero parqueadero;
+    private static Parqueadero parqueadero;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -19,6 +19,13 @@ public class App extends Application {
         stage.setTitle("Gestor de Parqueadero");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void setParqueadero(Parqueadero p){
+        parqueadero = p;
+    }
+    public static Parqueadero getParqueadero() {
+        return parqueadero;
     }
 
     public static void main(String[] args) {

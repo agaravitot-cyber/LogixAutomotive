@@ -1,16 +1,19 @@
-package parqueaderoapp.gui;
+package parqueaderoapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import parqueaderoapp.control.App;
+import javafx.stage.Stage;
+import parqueaderoapp.main.App;
 import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.parqueadero.Planta;
 import parqueaderoapp.modelo.persona.Administrador;
+import parqueaderoapp.modelo.persona.Empleado;
 
 public class crearParqueadero implements escenaGenericos {
 
+    private Administrador temp;
     @FXML
     private VBox formTarifa;
     @FXML
@@ -29,8 +32,6 @@ public class crearParqueadero implements escenaGenericos {
     private TextField tarifaCText;
     @FXML
     private TextField tarifaMText;
-    @FXML
-    private TextField tarifaBText;
 
     @FXML
     private void initialize() {
@@ -40,7 +41,6 @@ public class crearParqueadero implements escenaGenericos {
         numPisoSP.setValueFactory(valueFactory);
         campoNumerico(tarifaCText);
         campoNumerico(tarifaMText);
-        campoNumerico(tarifaBText);
     }
 
     @FXML
@@ -53,13 +53,20 @@ public class crearParqueadero implements escenaGenericos {
     private void onSiguiente() {
         String nombre = nombreText.getText();
         int tarifaC = Integer.parseInt(tarifaCText.getText());
-        int tarifaB = Integer.parseInt(tarifaBText.getText());
         int tarifaM = Integer.parseInt(tarifaMText.getText());
 
-        Parqueadero parqueadero = new Parqueadero(nombre, tarifaC, tarifaM, tarifaB);
-        App.parqueadero = parqueadero;
+        if (App.getParqueadero() == null) {
+            App.setParqueadero(new Parqueadero(nombre, tarifaC, tarifaM));
+            App.getParqueadero().agregarEmpleado(temp);
+        } else {
+            // Si ya existe, solo actualizas tarifas o nombre si quieres
+            App.getParqueadero().setTarifa(tarifaM, "Moto");
+            App.getParqueadero().setTarifa(tarifaC,"Carro");
+        }
+
         formTarifa.setVisible(false);
         formEstruct.setVisible(true);
+
     }
 
     @FXML
@@ -79,15 +86,12 @@ public class crearParqueadero implements escenaGenericos {
             // Spinners dinámicos
             Spinner<Integer> celdasCarro = new Spinner<>();
             Spinner<Integer> celdasMoto = new Spinner<>();
-            Spinner<Integer> celdasBici = new Spinner<>();
 
             totalCeldasCB.valueProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal != null) {
                     celdasCarro.setValueFactory(
                             new SpinnerValueFactory.IntegerSpinnerValueFactory(0, newVal, 0));
                     celdasMoto.setValueFactory(
-                            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, newVal, 0));
-                    celdasBici.setValueFactory(
                             new SpinnerValueFactory.IntegerSpinnerValueFactory(0, newVal, 0));
                 }
             });
@@ -98,14 +102,12 @@ public class crearParqueadero implements escenaGenericos {
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
             celdasMoto.setValueFactory(
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
-            celdasBici.setValueFactory(
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
+
 
             contenido.getChildren().addAll(
                     new Label("Capacidad total"), totalCeldasCB,
                     new Label("Carros"), celdasCarro,
-                    new Label("Motos"), celdasMoto,
-                    new Label("Bicis"), celdasBici);
+                    new Label("Motos"), celdasMoto);
 
             TitledPane pisoPane = new TitledPane("Piso " + i, contenido);
             pisosAcc.getPanes().add(pisoPane);
@@ -113,14 +115,13 @@ public class crearParqueadero implements escenaGenericos {
     }
 
     @FXML
-    private void onFinal() {
+    private void onFinal() throws Exception {
         for (TitledPane pane : pisosAcc.getPanes()) {
             VBox contenido = (VBox) pane.getContent();
 
             ComboBox<Integer> totalCeldasCB = null;
             Spinner<Integer> celdasCarro = null;
             Spinner<Integer> celdasMoto = null;
-            Spinner<Integer> celdasBici = null;
 
             // recorrer con for-each
             for (javafx.scene.Node node : contenido.getChildren()) {
@@ -136,9 +137,6 @@ public class crearParqueadero implements escenaGenericos {
                         case "Motos":
                             celdasMoto = (Spinner<Integer>) node;
                             break;
-                        case "Bicis":
-                            celdasBici = (Spinner<Integer>) node;
-                            break;
                     }
                 }
             }
@@ -146,13 +144,12 @@ public class crearParqueadero implements escenaGenericos {
             int total = totalCeldasCB.getValue();
             int carros = celdasCarro.getValue();
             int motos = celdasMoto.getValue();
-            int bicis = celdasBici.getValue();
 
-            if (carros + motos + bicis != total) {
+            if (carros + motos != total) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Error en distribución");
                 alert.setContentText("En " + pane.getText() +
-                        " la suma de carros+motos+bicis excede la capacidad (" + total + ")");
+                        " la suma de carros + motos no es igual a: " + total + "");
                 alert.showAndWait();
                 return;
             }
@@ -161,20 +158,22 @@ public class crearParqueadero implements escenaGenericos {
                 piso.agregar(new Celda("Carro"));
             for (int i = 0; i < motos; i++)
                 piso.agregar(new Celda("Moto"));
-            for (int i = 0; i < bicis; i++)
-                piso.agregar(new Celda("Bici"));
 
-            App.parqueadero.agregarPlanta(piso);
+            App.getParqueadero().agregarPlanta(piso);
         }
 
         Alert ok = new Alert(Alert.AlertType.INFORMATION);
         ok.setHeaderText("Parqueadero creado");
         ok.setContentText("Se han configurado todos los pisos correctamente.");
         ok.showAndWait();
+        App.getParqueadero().agregarEmpleado(new Empleado("tomas", 1010965315, "Saposapitosapo@gmail.com", "1010965315"));
 
+        Stage stage = (Stage) finalizarBtn.getScene().getWindow();
+        volverInicio(stage);
     }
 
     public void setAdmin(Administrador admin) {
-        App.parqueadero.agregarEmpleado(admin);
+        this.temp = admin;
     }
+
 }

@@ -43,4 +43,7 @@ public class Administrador extends Empleado {
         }
         return total;
     }
+    public void setEstado(boolean estado){
+        parqueadero.setEstado(estado);
+    }
 }

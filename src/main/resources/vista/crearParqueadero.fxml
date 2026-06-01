@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.gui.crearParqueadero">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.controller.crearParqueadero">
    <children>
       <VBox fx:id="formTarifa" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="104.0">
          <children>
@@ -41,16 +41,6 @@
                </VBox.margin>
             </Label>
             <TextField fx:id="tarifaMText">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Ingrese la Tarifa para Bicicletas">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="tarifaBText">
                <VBox.margin>
                   <Insets left="100.0" right="100.0" top="10.0" />
                </VBox.margin>
@@ -85,9 +75,9 @@
                <content>
                   <Accordion fx:id="pisosAcc">
                     <panes>
-                      <TitledPane animated="false" text="untitled 2">
+                      <TitledPane animated="false" text="pisos">
                            <content>
-                            <TitledPane animated="false" text="untitled 1" />
+                            <TitledPane animated="false" text=" " />
                            </content>
                         </TitledPane>
                     </panes>
@@ -102,7 +92,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="prevBtn" mnemonicParsing="false" onAction="#onAnterior" text="Anterior">
+            <Button fx:id="prevBtn2" mnemonicParsing="false" onAction="#onAnterior" text="Anterior">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

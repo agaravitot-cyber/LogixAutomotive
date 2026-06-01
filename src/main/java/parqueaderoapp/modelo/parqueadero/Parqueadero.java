@@ -11,19 +11,19 @@ public class Parqueadero {
     private String nombreNegocio;
     private int tarifaC;
     private int tarifaM;
-    private int tarifaB;
     private ArrayList<Planta> plantas;
     private ArrayList<Empleado> personal;
     private ArrayList<Recibo> recibos;
+    private boolean estado;
 
-    public Parqueadero(String nombre, int c, int m, int b) {
-        tarifaB = b;
+    public Parqueadero(String nombre, int c, int m) {
         tarifaC = c;
         tarifaM = m;
         this.nombreNegocio = nombre;
         plantas = new ArrayList<>();
         personal = new ArrayList<>();
         recibos = new ArrayList<>();
+        estado = true;
     }
 
     public void setTarifa(int n, String tipo) {
@@ -34,9 +34,6 @@ public class Parqueadero {
             case "Moto":
                 tarifaM = n;
                 break;
-            case "Bici":
-                tarifaB = n;
-                break;
             default:
                 break;
         }
@@ -45,15 +42,19 @@ public class Parqueadero {
     public void setNombre(String nuevoNombre) {
         this.nombreNegocio = nuevoNombre;
     }
+    public boolean getEstado(){
+        return estado;
+    }
 
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     public int getTarifa(String tipo) {
         switch (tipo) {
             case "Carro":
                 return tarifaC;
             case "Moto":
                 return tarifaM;
-            case "Bici":
-                return tarifaB;
             default:
                 return 0;
         }
@@ -159,7 +160,11 @@ public class Parqueadero {
     public double calcFactura(Vehiculo v) {
 
         return ("Carro".equalsIgnoreCase(v.getTipo()) ? tarifaC
-                : "Moto".equalsIgnoreCase(v.getTipo()) ? tarifaM : tarifaB) * v.getEstadia();
+                : tarifaM) * v.getEstadia();
+    }
+
+    public double calcIva(double base, Vehiculo v){
+        return calcFactura(v) * 1.19;
     }
 
     public ArrayList<Recibo> listaRecibo() {

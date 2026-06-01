@@ -1,4 +1,4 @@
-package parqueaderoapp.gui;
+package parqueaderoapp.controller;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import parqueaderoapp.control.App;
+import parqueaderoapp.main.App;
 import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Planta;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
@@ -35,7 +35,7 @@ public class clienteController implements escenaGenericos{
         String placa = placaCliente.getText();
         String tipo = tipoCliente.getValue();
 
-        Vehiculo v = App.parqueadero.buscarVehiculoPorPlaca(placa);
+        Vehiculo v = App.getParqueadero().buscarVehiculoPorPlaca(placa);
         if (v != null) {
             LocalDateTime salidaSimulada;
             if (horaSalidaCliente.getText().isEmpty()) {
@@ -58,7 +58,7 @@ public class clienteController implements escenaGenericos{
             }
 
             long minutos = Duration.between(v.getEntradaRaw(), salidaSimulada).toMinutes();
-            double monto = App.parqueadero.getTarifa(tipo) * minutos;
+            double monto = App.getParqueadero().getTarifa(tipo) * minutos;
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Previsualización de costo");
@@ -77,7 +77,7 @@ public class clienteController implements escenaGenericos{
         String tipo = tipoCliente.getValue();
         int libres = 0;
 
-        for (Planta p : App.parqueadero.listaPiso()) {
+        for (Planta p : App.getParqueadero().listaPiso()) {
 
             for (Celda c : p.listaCelda()) {
                 if (!c.isOcupada() && c.getTipoCelda().equalsIgnoreCase(tipo)) {

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.controller.adminController">
+  <children>
+    <AnchorPane fx:id="adminMain" layoutY="393.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <HBox fx:id="adminLbl" alignment="CENTER" layoutY="89.0" prefHeight="222.0" prefWidth="600.0">
+          <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+              <children>
+                <Button fx:id="gestEmp" mnemonicParsing="false" onAction="#onGestEmp" text="Gestionar Empleados" wrapText="true">
+                  <VBox.margin>
+                    <Insets bottom="50.0"/>
+                  </VBox.margin>
+                </Button>
+                <Button fx:id="gestPar" mnemonicParsing="false" onAction="#onGestPar" text="Gestionar Parqueadero" wrapText="true"/>
+              </children>
+            </VBox>
+            <Button fx:id="onEsta" mnemonicParsing="false" onAction="#onEstadistica" text="Consultar estadisticas">
+              <HBox.margin>
+                <Insets left="100.0" right="100.0"/>
+              </HBox.margin>
+            </Button>
+            <Accordion>
+              <panes>
+                <TitledPane fx:id="estAcc" animated="false" text="untitled 1"/>
+                <TitledPane animated="false" text="untitled 2"/>
+              </panes>
+            </Accordion>
+          </children>
+        </HBox>
+        <Label layoutX="209.0" layoutY="47.0" text="Bienvenido...">
+          <font>
+            <Font size="30.0"/>
+          </font>
+        </Label>
+        <MenuButton fx:id="openBtn" text="Abrir/Cerrar">
+          <items>
+            <RadioMenuItem fx:id="encenderItem" text="Encender" onAction="#onEncender"/>
+            <RadioMenuItem fx:id="apagarItem" text="Apagar" onAction="#onApagar"/>
+          </items>
+        </MenuButton>
+        <Button fx:id="volverBtn" layoutX="270.0" layoutY="347.0" mnemonicParsing="false" onAction="#onBack" text="Regresar"/>
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="adminEmp" layoutX="-600.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label layoutX="164.0" layoutY="14.0" text="Gestion de Empleados">
+          <font>
+            <Font size="26.0"/>
+          </font>
+        </Label>
+        <HBox layoutX="1.0" layoutY="57.0" prefHeight="250.0" prefWidth="600.0">
+          <children>
+            <VBox alignment="TOP_CENTER" prefHeight="209.0" prefWidth="199.0">
+              <children>
+                <Label text="Registrar Empleado"/>
+                <Label text="Nombre">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newName">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="10.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Label text="Documento">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newDoc">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="10.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Label text="Correo">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newEmail">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="10.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Label text="Contraseña">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newPass">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="10.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Button fx:id="regEmpBtn" mnemonicParsing="false" onAction="#onReg" text="Registrar">
+                  <VBox.margin>
+                    <Insets top="15.0"/>
+                  </VBox.margin>
+                </Button>
+              </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="235.0" prefWidth="198.0">
+              <children>
+                <Label text="Eliminar Empleado"/>
+                <Label text="Documento">
+                  <VBox.margin>
+                    <Insets top="20.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="delDoc">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="15.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Button fx:id="delBtn" mnemonicParsing="false" onAction="#onDel" text="Eliminar">
+                  <VBox.margin>
+                    <Insets top="30.0"/>
+                  </VBox.margin>
+                </Button>
+              </children>
+            </VBox>
+            <Accordion fx:id="empAcc" prefHeight="209.0" prefWidth="204.0">
+              <panes>
+                <TitledPane animated="false" text="untitled 1"/>
+                <TitledPane animated="false" text="untitled 2"/>
+              </panes>
+            </Accordion>
+          </children>
+        </HBox>
+        <Button fx:id="regBtn1" layoutX="263.0" layoutY="344.0" mnemonicParsing="false" onAction="#onPrev" text="Regresar"/>
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="adminPar" layoutX="600.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label layoutX="224.0" layoutY="52.0" text="Gestion del Parqueadero"/>
+        <HBox layoutX="-1.0" layoutY="84.0" prefHeight="245.0" prefWidth="600.0">
+          <children>
+            <VBox alignment="TOP_CENTER" prefHeight="181.0" prefWidth="314.0">
+              <children>
+                <Label text="Ajuste de Tarifas"/>
+                <Label text="Tarifa para Carros">
+                  <VBox.margin>
+                    <Insets top="20.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newTarC">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="15.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Label text="Tarifa para Motos">
+                  <VBox.margin>
+                    <Insets top="15.0"/>
+                  </VBox.margin>
+                </Label>
+                <TextField fx:id="newTarM">
+                  <VBox.margin>
+                    <Insets left="20.0" right="20.0" top="15.0"/>
+                  </VBox.margin>
+                </TextField>
+                <Button fx:id="tarifBtn" mnemonicParsing="false" onAction="#onTarifa" text="Hacer Cambios">
+                  <VBox.margin>
+                    <Insets top="30.0"/>
+                  </VBox.margin>
+                </Button>
+              </children>
+            </VBox>
+            <VBox fx:id="formEstruct" alignment="TOP_CENTER">
+              <children>
+                <Label text="Estructura del Parqueadero">
+                  <VBox.margin>
+                    <Insets top="15.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label text="Indique el numero de pisos del parquadero">
+                  <VBox.margin>
+                    <Insets top="15.0"/>
+                  </VBox.margin>
+                </Label>
+                <Spinner fx:id="numPisoSP">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Spinner>
+                <ScrollPane depthTest="DISABLE" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
+                  <content>
+                    <Accordion fx:id="pisosAcc">
+                      <panes>
+                        <TitledPane animated="false" text="pisos">
+                          <content>
+                            <TitledPane animated="false" text=""/>
+                          </content>
+                        </TitledPane>
+                      </panes>
+                    </Accordion>
+                  </content>
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </ScrollPane>
+                <Button fx:id="pisoGenBtn" mnemonicParsing="false" onAction="#onGenerarPiso" text="Generar Pisos">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Button>
+                <Button fx:id="EstBtn" mnemonicParsing="false" onAction="#onEstructura" text="Hacer Cambios">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Button>
+              </children>
+            </VBox>
+          </children>
+        </HBox>
+        <Button fx:id="regBtn2" layoutX="262.0" layoutY="337.0" mnemonicParsing="false" onAction="#onPrev" text="Regresar"/>
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="adminEst" layoutY="400.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <HBox layoutY="96.0" prefHeight="196.0" prefWidth="600.0">
+          <children>
+            <VBox alignment="TOP_CENTER" prefHeight="196.0" prefWidth="362.0">
+              <children>
+                <Label text="Ingresos de Hoy">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label text="Total">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label fx:id="totalIng" text="Total">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label text="Carros">
+                  <VBox.margin>
+                    <Insets top="15.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label fx:id="carIng" text="Total">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label text="Motos">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+                <Label fx:id="motoIng" text="Total">
+                  <VBox.margin>
+                    <Insets top="10.0"/>
+                  </VBox.margin>
+                </Label>
+              </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="196.0" prefWidth="353.0">
+              <children>
+                <Label text="No. de Clientes">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label text="Total">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label fx:id="totalNo" text="Total">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label text="Carro">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label fx:id="carNo" text="Total">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label text="Moto">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+                <Label fx:id="motoNo" text="Total">
+                  <padding>
+                    <Insets top="10.0"/>
+                  </padding>
+                </Label>
+              </children>
+            </VBox>
+          </children>
+        </HBox>
+        <Label layoutX="227.0" layoutY="62.0" text="Menu de Estadisticas"/>
+        <Button fx:id="updBtn" layoutX="58.0" layoutY="321.0" mnemonicParsing="false" onAction="#onUpdate" text="Actualizar"/>
+        <Button fx:id="regBtn3" layoutX="254.0" layoutY="334.0" mnemonicParsing="false" onAction="#onPrev" text="Regresar"/>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>

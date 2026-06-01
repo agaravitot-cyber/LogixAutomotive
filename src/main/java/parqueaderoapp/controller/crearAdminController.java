@@ -1,4 +1,4 @@
-package parqueaderoapp.gui;
+package parqueaderoapp.controller;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -14,10 +14,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import parqueaderoapp.control.App;
+import parqueaderoapp.main.App;
 import parqueaderoapp.modelo.persona.Administrador;
 
-public class crearAdminController {
+public class crearAdminController implements escenaGenericos {
 
     @FXML
     private TextField nombreText;
@@ -33,6 +33,8 @@ public class crearAdminController {
 
     @FXML
     private Button registroBtn;
+    @FXML
+    private Button regresoBtn;
 
     @FXML
     private void initialize() {
@@ -108,7 +110,7 @@ public class crearAdminController {
         if (resultado.isPresent() && resultado.get() == botonSi) {
             Long documento = Long.parseLong(documentoStr);
             Administrador admin = new Administrador(nombre, documento, correo, pass);
-            if (App.parqueadero == null) {
+            if (App.getParqueadero() == null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/crearParqueadero.fxml"));
                 Scene nuevaEscena = new Scene(loader.load());
                 crearParqueadero controller = loader.getController();
@@ -121,6 +123,12 @@ public class crearAdminController {
             }
         }
 
+    }
+
+    @FXML
+    public void onBack() throws Exception {
+        Stage stage = (Stage) regresoBtn.getScene().getWindow();
+        volverInicio(stage);
     }
 
 }

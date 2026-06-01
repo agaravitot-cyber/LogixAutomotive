@@ -1,4 +1,4 @@
-package parqueaderoapp.gui;
+package parqueaderoapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +9,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import parqueaderoapp.control.App;
+import parqueaderoapp.main.App;
 import parqueaderoapp.modelo.persona.Administrador;
 import parqueaderoapp.modelo.persona.Empleado;
 
 public class loginEmpleado implements escenaGenericos {
 
+    
     @FXML
     private TextField usuarioText;
     @FXML
@@ -25,6 +26,8 @@ public class loginEmpleado implements escenaGenericos {
     private Button regresoBtn;
 
     @FXML
+
+
     private void initialize() {
         // Solo números, máximo 18 dígitos
         usuarioText.setTextFormatter(new TextFormatter<>(c -> {
@@ -40,7 +43,7 @@ public class loginEmpleado implements escenaGenericos {
         String usuario = usuarioText.getText();
         String pass = passwordText.getText();
 
-        Empleado empleadoValido = App.parqueadero.getEmpleados().stream()
+        Empleado empleadoValido = App.getParqueadero().getEmpleados().stream()
                 .filter(e -> String.valueOf(e.getDocumento()).equals(usuario) && e.getPass().equals(pass)).findFirst()
                 .orElse(null);
 
@@ -84,4 +87,9 @@ public class loginEmpleado implements escenaGenericos {
         stage.show();
     }
 
+    @FXML
+    public void onBack() throws Exception {
+        Stage stage = (Stage) regresoBtn.getScene().getWindow();
+        volverInicio(stage);
+    }
 }

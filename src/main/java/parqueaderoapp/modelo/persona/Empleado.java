@@ -30,8 +30,9 @@ public class Empleado extends Persona {
     }
 
     public void generarRecibo(Vehiculo v) {
-        double monto = parqueadero.calcFactura(v);
-        parqueadero.agregarRecibo(new Recibo(v, v.getConductor(), monto));
+        double base = parqueadero.calcFactura(v);
+        double monto = parqueadero.calcIva(base,v);
+        parqueadero.agregarRecibo(new Recibo(v,this, monto,base));
     }
 
     public String getPass() {

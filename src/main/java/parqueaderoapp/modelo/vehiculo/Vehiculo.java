@@ -13,7 +13,7 @@ public class Vehiculo {
     private LocalDateTime fechaEntrada;
     private LocalDateTime fechaSalida;
     private Cliente conductor;
-
+    
     public Vehiculo(String placa, String tipo) {
         this.placa = placa;
         this.tipoVehiculo = tipo;

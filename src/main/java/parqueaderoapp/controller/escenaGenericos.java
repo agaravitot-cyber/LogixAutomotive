@@ -1,9 +1,10 @@
-package parqueaderoapp.gui;
+package parqueaderoapp.controller;
 
 
 import java.util.function.UnaryOperator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
@@ -35,5 +36,16 @@ public interface escenaGenericos {
         };
         field.setTextFormatter(new TextFormatter<>(filter));
     }
-
+    default void mostrarInfo(String header, String content) {
+        Alert ok = new Alert(Alert.AlertType.INFORMATION);
+        ok.setHeaderText(header);
+        ok.setContentText(content);
+        ok.showAndWait();
+    }
+    default void mostrarError(String header, String content) {
+    Alert error = new Alert(Alert.AlertType.ERROR);
+    error.setHeaderText(header);
+    error.setContentText(content);
+    error.showAndWait();
+}
 }
