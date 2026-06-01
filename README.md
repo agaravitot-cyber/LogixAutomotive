@@ -12,11 +12,7 @@ Juan Camilo Bocanegra Luna
 ## Dependencias
 
 - **Java 21** (JDK)
-- **JavaFX 21 SDK** (copiar los `.jar` en la carpeta `lib/`):
-  - javafx.base.jar
-  - javafx.controls.jar
-  - javafx.fxml.jar
-  - javafx.graphics.jar
+- **JavaFX 21 SDK** (copiar el extraido de java-sdk-21 a lib)
   
 ## Compilación y ejecución
 
