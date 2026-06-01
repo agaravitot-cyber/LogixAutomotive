@@ -1,6 +1,8 @@
 package parqueaderoapp.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -8,12 +10,9 @@ import parqueaderoapp.main.App;
 import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Parqueadero;
 import parqueaderoapp.modelo.parqueadero.Planta;
-import parqueaderoapp.modelo.persona.Administrador;
-import parqueaderoapp.modelo.persona.Empleado;
 
 public class crearParqueadero implements escenaGenericos {
 
-    private Administrador temp;
     @FXML
     private VBox formTarifa;
     @FXML
@@ -57,11 +56,11 @@ public class crearParqueadero implements escenaGenericos {
 
         if (App.getParqueadero() == null) {
             App.setParqueadero(new Parqueadero(nombre, tarifaC, tarifaM));
-            App.getParqueadero().agregarEmpleado(temp);
+            App.getParqueadero().agregarEmpleado(App.getAdministrador());
         } else {
             // Si ya existe, solo actualizas tarifas o nombre si quieres
             App.getParqueadero().setTarifa(tarifaM, "Moto");
-            App.getParqueadero().setTarifa(tarifaC,"Carro");
+            App.getParqueadero().setTarifa(tarifaC, "Carro");
         }
 
         formTarifa.setVisible(false);
@@ -102,7 +101,6 @@ public class crearParqueadero implements escenaGenericos {
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
             celdasMoto.setValueFactory(
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
-
 
             contenido.getChildren().addAll(
                     new Label("Capacidad total"), totalCeldasCB,
@@ -166,14 +164,15 @@ public class crearParqueadero implements escenaGenericos {
         ok.setHeaderText("Parqueadero creado");
         ok.setContentText("Se han configurado todos los pisos correctamente.");
         ok.showAndWait();
-        App.getParqueadero().agregarEmpleado(new Empleado("tomas", 1010965315, "Saposapitosapo@gmail.com", "1010965315"));
 
         Stage stage = (Stage) finalizarBtn.getScene().getWindow();
-        volverInicio(stage);
-    }
 
-    public void setAdmin(Administrador admin) {
-        this.temp = admin;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/adminEscena.fxml"));
+        Scene adminScene = new Scene(loader.load());
+
+        stage.setScene(adminScene);
+        stage.setTitle("Menú Administrador");
+        stage.show();
     }
 
 }

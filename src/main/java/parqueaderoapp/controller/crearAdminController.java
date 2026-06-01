@@ -113,9 +113,9 @@ public class crearAdminController implements escenaGenericos {
             if (App.getParqueadero() == null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/crearParqueadero.fxml"));
                 Scene nuevaEscena = new Scene(loader.load());
-                crearParqueadero controller = loader.getController();
-
-                controller.setAdmin(admin);
+        
+                App.setAdmin(admin);
+    
                 Stage stage = (Stage) registroBtn.getScene().getWindow();
                 stage.setScene(nuevaEscena);
                 stage.setTitle("Creacion de Parqueadero");

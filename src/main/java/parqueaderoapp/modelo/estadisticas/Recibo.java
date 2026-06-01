@@ -30,6 +30,10 @@ public class Recibo {
         return Integer.toHexString(contador++).toUpperCase();
     }
 
+    public String getPlacaCopia() {
+        return placaCopia;
+    }
+
     public double getMonto() {
         return monto;
     }

@@ -1,7 +1,9 @@
 package parqueaderoapp.controller;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -16,7 +18,7 @@ import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Planta;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
 
-public class clienteController implements escenaGenericos{
+public class clienteController implements escenaGenericos {
 
     @FXML
     private TextField placaCliente;
@@ -24,10 +26,12 @@ public class clienteController implements escenaGenericos{
     private ComboBox<String> tipoCliente;
     @FXML
     private TextField horaSalidaCliente;
-    @FXML private Button regresoBtn;
+    @FXML
+    private Button regresoBtn;
+
     @FXML
     public void initialize() {
-        tipoCliente.getItems().addAll("Carro", "Moto", "Bici");
+        tipoCliente.getItems().addAll("Carro", "Moto");
     }
 
     @FXML
@@ -42,11 +46,12 @@ public class clienteController implements escenaGenericos{
                 salidaSimulada = LocalDateTime.now();
             } else {
                 try {
-                    salidaSimulada = LocalDateTime.parse(horaSalidaCliente.getText(),
-                            DateTimeFormatter.ofPattern("HH:mm"))
-                            .withYear(LocalDateTime.now().getYear())
-                            .withMonth(LocalDateTime.now().getMonthValue())
-                            .withDayOfMonth(LocalDateTime.now().getDayOfMonth());
+                    
+                    LocalDateTime base = LocalDateTime.of(LocalDate.now(),
+                            LocalTime.parse(horaSalidaCliente.getText(),
+                                    DateTimeFormatter.ofPattern("HH:mm")));
+
+                    salidaSimulada = base; 
                 } catch (DateTimeParseException e) {
                     Alert error = new Alert(Alert.AlertType.ERROR);
                     error.setHeaderText("Formato inválido");
@@ -54,7 +59,6 @@ public class clienteController implements escenaGenericos{
                     error.showAndWait();
                     return;
                 }
-
             }
 
             long minutos = Duration.between(v.getEntradaRaw(), salidaSimulada).toMinutes();
@@ -95,6 +99,6 @@ public class clienteController implements escenaGenericos{
     @FXML
     private void onBack() throws Exception {
         Stage stage = (Stage) regresoBtn.getScene().getWindow();
-        volverInicio(stage); 
+        volverInicio(stage);
     }
 }

@@ -42,13 +42,15 @@ public class Parqueadero {
     public void setNombre(String nuevoNombre) {
         this.nombreNegocio = nuevoNombre;
     }
-    public boolean getEstado(){
+
+    public boolean getEstado() {
         return estado;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
     public int getTarifa(String tipo) {
         switch (tipo) {
             case "Carro":
@@ -163,8 +165,12 @@ public class Parqueadero {
                 : tarifaM) * v.getEstadia();
     }
 
-    public double calcIva(double base, Vehiculo v){
+    public double calcIva(double base, Vehiculo v) {
         return calcFactura(v) * 1.19;
+    }
+
+    public void limpiarPlantas() {
+        this.plantas.clear();
     }
 
     public ArrayList<Recibo> listaRecibo() {

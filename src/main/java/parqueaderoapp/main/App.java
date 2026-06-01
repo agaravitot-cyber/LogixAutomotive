@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import parqueaderoapp.modelo.parqueadero.Parqueadero;
+import parqueaderoapp.modelo.persona.Administrador;
 
 public class App extends Application {
 
     private static Parqueadero parqueadero;
+    private static Administrador admin;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -21,6 +23,12 @@ public class App extends Application {
         stage.show();
     }
 
+    public static void setAdmin(Administrador a){
+        admin = a;
+    }
+    public static Administrador getAdministrador(){
+        return admin;
+    }
     public static void setParqueadero(Parqueadero p){
         parqueadero = p;
     }

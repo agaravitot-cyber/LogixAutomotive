@@ -1,6 +1,5 @@
 package parqueaderoapp.modelo.persona;
 
-import parqueaderoapp.modelo.estadisticas.Recibo;
 import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Planta;
 
@@ -36,13 +35,6 @@ public class Administrador extends Empleado {
         p.quitar(c);
     }
 
-    public double registroIngresos(){
-        double total = 0;
-        for(Recibo r : parqueadero.listaRecibo()){
-            total += r.getMonto();
-        }
-        return total;
-    }
     public void setEstado(boolean estado){
         parqueadero.setEstado(estado);
     }

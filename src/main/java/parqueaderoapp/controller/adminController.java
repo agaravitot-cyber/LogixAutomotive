@@ -2,19 +2,25 @@ package parqueaderoapp.controller;
 
 import parqueaderoapp.modelo.persona.Administrador;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import parqueaderoapp.modelo.persona.Empleado;
 import parqueaderoapp.modelo.parqueadero.Planta;
 import parqueaderoapp.main.App;
+import parqueaderoapp.modelo.estadisticas.Recibo;
 import parqueaderoapp.modelo.parqueadero.Celda;
 
 public class adminController implements escenaGenericos {
 
-    private Administrador admin;
+    private Administrador admin = App.getAdministrador();
 
     // Label de bienvenida
     @FXML
@@ -39,6 +45,11 @@ public class adminController implements escenaGenericos {
     private Button volverBtn;
     @FXML
     private MenuButton openBtn;
+    @FXML
+    private RadioMenuItem encenderItem;
+
+    @FXML
+    private RadioMenuItem apagarItem;
 
     // Gestion de empleados
     @FXML
@@ -106,8 +117,19 @@ public class adminController implements escenaGenericos {
         adminPar.setVisible(false);
         adminEst.setVisible(false);
 
-        // Texto inicial de bienvenida (luego se puede setear con el nombre del admin)
-        bienvenidoLbl.setText("Bienvenido...");
+        bienvenidoLbl.setText("Bienvenido," + admin.getNombre());
+
+        campoNumerico(newDoc);
+        campoNumerico(delDoc);
+        ToggleGroup estadoGroup = new ToggleGroup();
+        encenderItem.setToggleGroup(estadoGroup);
+        apagarItem.setToggleGroup(estadoGroup);
+        encenderItem.setSelected(true); // por defecto encendido
+        numPisoSP.setValueFactory(
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1)
+    );
+        refreshEmpAcc();
+        refreshParqAcc();
     }
 
     @FXML
@@ -136,11 +158,12 @@ public class adminController implements escenaGenericos {
 
     @FXML
     private void onPrev() {
-        // Regresa al menú principal desde cualquier submenú
+        // Regresa al menú principal desde cualquier submenu
         adminMain.setVisible(true);
         adminEmp.setVisible(false);
         adminPar.setVisible(false);
         adminEst.setVisible(false);
+        refreshParqAcc();
     }
 
     @FXML
@@ -246,30 +269,312 @@ public class adminController implements escenaGenericos {
                 mostrarInfo("Registro exitoso", "Empleado registrado correctamente.");
             }
         });
+        refreshEmpAcc();
     }
 
     @FXML
     private void onDel() {
+        String documentoStr = delDoc.getText().trim();
 
+        if (documentoStr.isEmpty()) {
+            mostrarError("Campo vacío", "Debe ingresar el documento del empleado a eliminar.");
+            return;
+        }
+
+        long documento = Long.parseLong(documentoStr);
+
+        Empleado encontrado = App.getParqueadero().getEmpleados().stream()
+                .filter(emp -> emp.getDocumento().equals(Long.toString(documento)))
+                .findFirst()
+                .orElse(null);
+
+        if (encontrado == null) {
+            mostrarError("No encontrado", "No existe un empleado con ese documento.");
+            return;
+        }
+
+        // Confirmacion
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirmar eliminación");
+        confirm.setHeaderText("¿Desea eliminar este empleado?");
+        confirm.setContentText("Nombre: " + encontrado.getNombre() + "\nDocumento: " + documento);
+
+        ButtonType siBtn = new ButtonType("Sí", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noBtn = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirm.getButtonTypes().setAll(siBtn, noBtn);
+
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == siBtn) {
+                admin.quitarEmpleado(encontrado);
+                mostrarInfo("Eliminación exitosa", "Empleado eliminado correctamente.");
+            }
+        });
+        refreshEmpAcc();
     }
 
     @FXML
     private void onTarifa() {
+        String tarCarroStr = newTarC.getText().trim();
+        String tarMotoStr = newTarM.getText().trim();
+
+        boolean cambioCarro = !tarCarroStr.isEmpty();
+        boolean cambioMoto = !tarMotoStr.isEmpty();
+
+        if (!cambioCarro && !cambioMoto) {
+            mostrarError("Sin cambios", "No se han generado cambios en las tarifas.");
+            return;
+        }
+
+        // Confirmación
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirmar cambios");
+        confirm.setHeaderText("¿Desea aplicar los cambios de tarifa?");
+        StringBuilder sb = new StringBuilder("Cambios:\n");
+        if (cambioCarro)
+            sb.append("Carro: ").append(tarCarroStr).append("\n");
+        if (cambioMoto)
+            sb.append("Moto: ").append(tarMotoStr).append("\n");
+        confirm.setContentText(sb.toString());
+
+        ButtonType siBtn = new ButtonType("Sí", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noBtn = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirm.getButtonTypes().setAll(siBtn, noBtn);
+
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == siBtn) {
+                if (cambioCarro) {
+                    try {
+                        int tarifaCarro = Integer.parseInt(tarCarroStr);
+                        App.getParqueadero().setTarifa(tarifaCarro, "Carro");
+                    } catch (NumberFormatException e) {
+                        mostrarError("Error", "La tarifa de carro debe ser numérica.");
+                        return;
+                    }
+                }
+                if (cambioMoto) {
+                    try {
+                        int tarifaMoto = Integer.parseInt(tarMotoStr);
+                        App.getParqueadero().setTarifa(tarifaMoto, "Moto");
+                        ;
+                    } catch (NumberFormatException e) {
+                        mostrarError("Error", "La tarifa de moto debe ser numérica.");
+                        return;
+                    }
+                }
+                mostrarInfo("Cambios aplicados", "Las tarifas han sido modificadas correctamente.");
+            }
+        });
     }
 
     @FXML
     private void onGenerarPiso() {
+        // Limpiar el Accordion antes de generar
+        pisosAcc.getPanes().clear();
+
+        int numPiso = numPisoSP.getValue();
+
+        for (int i = 1; i <= numPiso; i++) {
+            VBox contenido = new VBox(10);
+
+            // ComboBox capacidad total
+            ComboBox<Integer> totalCeldasCB = new ComboBox<>();
+            for (int j = 1; j <= 100; j++) {
+                totalCeldasCB.getItems().add(j);
+            }
+            totalCeldasCB.setValue(10);
+
+            // Spinners dinámicos
+            Spinner<Integer> celdasCarro = new Spinner<>();
+            Spinner<Integer> celdasMoto = new Spinner<>();
+
+            totalCeldasCB.valueProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal != null) {
+                    celdasCarro.setValueFactory(
+                            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, newVal, 0));
+                    celdasMoto.setValueFactory(
+                            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, newVal, 0));
+                }
+            });
+
+            int capacidadInicial = totalCeldasCB.getValue();
+            celdasCarro.setValueFactory(
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
+            celdasMoto.setValueFactory(
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, capacidadInicial, 0));
+
+            contenido.getChildren().addAll(
+                    new Label("Capacidad total"), totalCeldasCB,
+                    new Label("Carros"), celdasCarro,
+                    new Label("Motos"), celdasMoto);
+
+            TitledPane pisoPane = new TitledPane("Piso " + i, contenido);
+            pisosAcc.getPanes().add(pisoPane);
+        }
     }
 
     @FXML
     private void onEstructura() {
+        // Reiniciar la estructura: limpiar plantas previas
+        App.getParqueadero().limpiarPlantas();
+
+        for (TitledPane pane : pisosAcc.getPanes()) {
+            VBox contenido = (VBox) pane.getContent();
+
+            ComboBox<Integer> totalCeldasCB = null;
+            Spinner<Integer> celdasCarro = null;
+            Spinner<Integer> celdasMoto = null;
+
+            for (javafx.scene.Node node : contenido.getChildren()) {
+                if (node instanceof ComboBox) {
+                    totalCeldasCB = (ComboBox<Integer>) node;
+                } else if (node instanceof Spinner) {
+                    Label etiqueta = (Label) contenido.getChildren()
+                            .get(contenido.getChildren().indexOf(node) - 1);
+                    switch (etiqueta.getText()) {
+                        case "Carros":
+                            celdasCarro = (Spinner<Integer>) node;
+                            break;
+                        case "Motos":
+                            celdasMoto = (Spinner<Integer>) node;
+                            break;
+                    }
+                }
+            }
+
+            int total = totalCeldasCB.getValue();
+            int carros = celdasCarro.getValue();
+            int motos = celdasMoto.getValue();
+
+            if (carros + motos != total) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Error en distribución");
+                alert.setContentText("En " + pane.getText() +
+                        " la suma de carros + motos (" + (carros + motos) +
+                        ") no es igual a la capacidad total (" + total + ")");
+                alert.showAndWait();
+                return;
+            }
+
+            Planta piso = new Planta(total);
+            for (int i = 0; i < carros; i++)
+                piso.agregar(new Celda("Carro"));
+            for (int i = 0; i < motos; i++)
+                piso.agregar(new Celda("Moto"));
+
+            App.getParqueadero().agregarPlanta(piso);
+        }
+
+        Alert ok = new Alert(Alert.AlertType.INFORMATION);
+        ok.setHeaderText("Estructura configurada");
+        ok.setContentText("Se han configurado todos los pisos correctamente.");
+        ok.showAndWait();
     }
 
     @FXML
     private void onUpdate() {
+        double totalIngresos = 0;
+        double ingresosCarro = 0;
+        double ingresosMoto = 0;
+
+        Set<String> clientesPasados = new HashSet<>();
+        int clientesCarroPasados = 0;
+        int clientesMotoPasados = 0;
+
+        // Recorrer recibos
+        for (Recibo r : App.getParqueadero().listaRecibo()) {
+            totalIngresos += r.getMonto();
+            if (r.getTipoCopia().equalsIgnoreCase("Carro")) {
+                ingresosCarro += r.getMonto();
+                clientesCarroPasados++;
+            } else if (r.getTipoCopia().equalsIgnoreCase("Moto")) {
+                ingresosMoto += r.getMonto();
+                clientesMotoPasados++;
+            }
+            clientesPasados.add(r.getPlacaCopia());
+        }
+
+        // Clientes presentes
+        int clientesCarroPresentes = 0;
+        int clientesMotoPresentes = 0;
+        for (Planta p : App.getParqueadero().listaPiso()) {
+            for (Celda c : p.listaCelda()) {
+                if (c.isOcupada()) {
+                    if (c.getTipoCelda().equalsIgnoreCase("Carro")) {
+                        clientesCarroPresentes++;
+                    } else if (c.getTipoCelda().equalsIgnoreCase("Moto")) {
+                        clientesMotoPresentes++;
+                    }
+                }
+            }
+        }
+
+        int totalClientes = clientesPasados.size() + clientesCarroPresentes + clientesMotoPresentes;
+        int totalCarros = clientesCarroPasados + clientesCarroPresentes;
+        int totalMotos = clientesMotoPasados + clientesMotoPresentes;
+
+        // Actualizar labels de ingresos
+        totalIng.setText("Total: $" + totalIngresos);
+        carIng.setText("Carros: $" + ingresosCarro + " (" + porcentaje(ingresosCarro, totalIngresos) + "%)");
+        motoIng.setText("Motos: $" + ingresosMoto + " (" + porcentaje(ingresosMoto, totalIngresos) + "%)");
+
+        // Actualizar labels de clientes
+        totalNo.setText("Total: " + totalClientes);
+        carNo.setText("Carros: " + totalCarros + " (" + porcentaje(totalCarros, totalClientes) + "%)");
+        motoNo.setText("Motos: " + totalMotos + " (" + porcentaje(totalMotos, totalClientes) + "%)");
     }
 
-    public void setAdmin(Administrador a) {
-        admin = a;
+    // Método auxiliar para calcular porcentajes
+    private String porcentaje(double parte, double total) {
+        if (total == 0)
+            return "0";
+        return String.format("%.1f", (parte / total) * 100);
+    }
+
+    private void refreshParqAcc() {
+        estAcc.getPanes().clear();
+
+        List<Planta> pisos = App.getParqueadero().listaPiso();
+        for (int i = 0; i < pisos.size(); i++) {
+            Planta piso = pisos.get(i);
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(5);
+
+            int row = 0;
+            for (Celda celda : piso.listaCelda()) {
+                Label tipoLabel = new Label(celda.getTipoCelda());
+                Label estadoLabel = new Label(celda.isOcupada() ? "Ocupado" : "Libre");
+                estadoLabel.setStyle(celda.isOcupada() ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+
+                grid.add(tipoLabel, 0, row);
+                grid.add(estadoLabel, 1, row);
+                row++;
+            }
+
+            TitledPane pisoPane = new TitledPane("Piso " + (i + 1), grid);
+            estAcc.getPanes().add(pisoPane);
+        }
+    }
+
+    private void refreshEmpAcc() {
+        empAcc.getPanes().clear();
+
+        List<Empleado> empleados = App.getParqueadero().getEmpleados();
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(5);
+
+        int row = 0;
+        for (Empleado emp : empleados) {
+            Label nombreLabel = new Label(emp.getNombre());
+            Label correoLabel = new Label(emp.getEmail());
+
+            grid.add(nombreLabel, 0, row);
+            grid.add(correoLabel, 1, row);
+            row++;
+        }
+
+        TitledPane empleadosPane = new TitledPane("Empleados registrados", grid);
+        empAcc.getPanes().add(empleadosPane);
     }
 }

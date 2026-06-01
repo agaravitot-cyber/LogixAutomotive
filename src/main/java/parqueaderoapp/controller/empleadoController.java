@@ -5,11 +5,13 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import parqueaderoapp.main.App;
+import parqueaderoapp.modelo.estadisticas.Recibo;
 import parqueaderoapp.modelo.parqueadero.Celda;
 import parqueaderoapp.modelo.parqueadero.Planta;
 import parqueaderoapp.modelo.persona.Empleado;
 import parqueaderoapp.modelo.vehiculo.Vehiculo;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,9 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 
-public class empleadoController implements escenaGenericos{
+public class empleadoController implements escenaGenericos {
     private Empleado empleado;
-
     @FXML
     private TextField entradaPlaca;
     @FXML
@@ -37,7 +38,7 @@ public class empleadoController implements escenaGenericos{
 
     @FXML
     public void initialize() {
-        tipo.getItems().addAll("Carro", "Moto", "Bici");
+        tipo.getItems().addAll("Carro", "Moto");
         refreshAccordion();
     }
 
@@ -92,23 +93,36 @@ public class empleadoController implements escenaGenericos{
     }
 
     @FXML
-    private void onRegistrarSalida() {
-        String placa = salidaPlaca.getText().trim();
+private void onRegistrarSalida() {
+    String placa = salidaPlaca.getText().trim();
 
-        if (placa.isEmpty()) {
-            mostrarError("Placa requerida", "Debe ingresar la placa para registrar la salida.");
-            return;
-        }
-
-        Vehiculo v = App.getParqueadero().buscarVehiculoPorPlaca(placa);
-        if (v != null) {
-            empleado.registroSalida(v);
-            mostrarInfo("Salida registrada", "Vehículo " + placa + " salió correctamente.");
-            refreshAccordion();
-        } else {
-            mostrarError("Vehículo no encontrado", "No se encontró el vehículo " + placa + " en ninguna celda.");
-        }
+    if (placa.isEmpty()) {
+        mostrarError("Placa requerida", "Debe ingresar la placa para registrar la salida.");
+        return;
     }
+
+    Vehiculo v = App.getParqueadero().buscarVehiculoPorPlaca(placa);
+    if (v != null) {
+        
+        empleado.registroSalida(v);
+
+        
+        Recibo reciboGenerado = App.getParqueadero().listaRecibo()
+                .get(App.getParqueadero().listaRecibo().size() - 1);
+
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Salida registrada");
+        alert.setHeaderText("Vehículo " + placa + " salió correctamente.");
+        alert.setContentText(reciboGenerado.toString());
+        alert.showAndWait();
+
+        refreshAccordion();
+    } else {
+        mostrarError("Vehículo no encontrado", "No se encontró el vehículo " + placa + " en ninguna celda.");
+    }
+}
+
 
     public void setEmpleado(Empleado e) {
         this.empleado = e;
@@ -153,5 +167,4 @@ public class empleadoController implements escenaGenericos{
         }
         return false;
     }
-    
 }

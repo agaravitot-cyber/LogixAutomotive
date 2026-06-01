@@ -78,9 +78,6 @@ public class loginEmpleado implements escenaGenericos {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/adminEscena.fxml"));
         Scene nuevaEscena = new Scene(loader.load());
 
-        adminController controller = loader.getController();
-        controller.setAdmin(a);
-
         Stage stage = (Stage) loginBtn.getScene().getWindow();
         stage.setScene(nuevaEscena);
         stage.setTitle("Menu Administrador");
