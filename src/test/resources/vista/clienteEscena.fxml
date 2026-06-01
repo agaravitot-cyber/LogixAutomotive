@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../estilo/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.controller.clienteController">
+
+   <children>
+      <!-- Contenedor horizontal para dividir en dos columnas -->
+      <HBox alignment="TOP_CENTER" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         
+         <!-- Columna izquierda: consulta tarifa -->
+         <VBox alignment="TOP_CENTER" maxWidth="280" spacing="15.0">
+            <Label text="Menu Cliente" />
+            <Label text="Consulta Tarifa" />
+            <Label text="Placa a consultar" />
+            <TextField fx:id="placaCliente" maxWidth="200" promptText="ABC123" />
+            <Label text="Tipo de vehiculo" />
+            <ComboBox fx:id="tipoCliente" prefWidth="150.0" />
+            <TextField fx:id="horaSalidaCliente" maxWidth="200" promptText="Hora salida, HH:mm (opcional)" />
+            <Button mnemonicParsing="false" onAction="#onPrevisualizarCosto" text="Consultar" />
+         </VBox>
+
+         <!-- Columna derecha: disponibilidad -->
+         <VBox alignment="TOP_CENTER" maxWidth="280" spacing="20.0">
+            <Label text="Consulta disponibilidad" />
+            <Button mnemonicParsing="false" onAction="#onConsultarDisponibilidad" text="Consultar" />
+            <Button fx:id="regresoBtn" mnemonicParsing="false" onAction="#onBack" text="Atrás" />
+         </VBox>
+
+      </HBox>
+   </children>
+</AnchorPane>

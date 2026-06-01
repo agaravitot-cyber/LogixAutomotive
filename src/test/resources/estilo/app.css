@@ -1,0 +1,140 @@
+/* Fondo general */
+.root {
+    -fx-background-color: #2e2e2e; /* gris oscuro elegante */
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #d9d9d9; /* gris claro */
+    -fx-font-weight: bold;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #800020; /* vino tinto */
+    -fx-text-fill: #e0e0e0; /* gris claro */
+    -fx-font-size: 14px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 6;
+    -fx-border-color: #a52a2a;
+    -fx-border-radius: 6;
+}
+.button:hover {
+    -fx-background-color: #a52a2a; /* vino más brillante */
+    -fx-text-fill: white;
+}
+
+/* TextFields y PasswordFields */
+.text-field, .password-field {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: #d9d9d9;
+    -fx-border-color: #666666;
+    -fx-border-radius: 4;
+    -fx-padding: 6;
+    -fx-font-size: 13px;
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #800020;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #666666;
+    -fx-border-radius: 4;
+    -fx-text-fill: #d9d9d9;
+}
+.combo-box:focused {
+    -fx-border-color: #800020;
+}
+
+/* Spinner */
+.spinner {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #666666;
+    -fx-border-radius: 4;
+    -fx-text-fill: #d9d9d9;
+}
+
+/* Accordion y TitledPane */
+.accordion {
+    -fx-background-color: #2e2e2e; /* gris oscuro */
+}
+.titled-pane > .title {
+    -fx-background-color: #800020;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: bold;
+}
+.titled-pane > .content {
+    -fx-background-color: #3a3a3a; /* gris medio para contenido */
+}
+.titled-pane > .title:hover {
+    -fx-background-color: #a52a2a;
+}
+
+/* MenuButton */
+.menu-button {
+    -fx-background-color: #800020;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #a52a2a;
+    -fx-border-radius: 6;
+}
+.menu-button:hover {
+    -fx-background-color: #a52a2a;
+    -fx-text-fill: white;
+}
+
+/* RadioButton */
+.radio-button {
+    -fx-text-fill: #d9d9d9;
+}
+.radio-button:selected {
+    -fx-mark-color: #800020; /* color vino para el círculo seleccionado */
+}
+/* ScrollPane */
+.scroll-pane {
+    -fx-background: #2e2e2e;       /* gris oscuro */
+    -fx-background-color: #2e2e2e; /* asegura fondo */
+    -fx-border-color: #666666;
+}
+
+/* El contenido interno del ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #2e2e2e; /* gris oscuro */
+}
+
+/* Barras de scroll */
+.scroll-bar {
+    -fx-background-color: #3a3a3a;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #800020; /* vino tinto */
+    -fx-background-radius: 4;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #a52a2a; /* vino más brillante */
+}
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #666666;
+    -fx-border-radius: 4;
+    -fx-text-fill: #d9d9d9; /* texto claro */
+}
+
+/* Texto dentro del editor del ComboBox */
+.combo-box .list-cell {
+    -fx-text-fill: #d9d9d9; /* gris claro */
+    -fx-background-color: #3a3a3a;
+}
+.combo-box .list-cell:hover {
+    -fx-background-color: #800020; /* vino tinto al hover */
+    -fx-text-fill: white;
+}
+
+/* Cuando el ComboBox está enfocado */
+.combo-box:focused {
+    -fx-border-color: #800020;
+}
+

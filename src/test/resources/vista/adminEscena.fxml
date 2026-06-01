@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane stylesheets="@../estilo/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parqueaderoapp.controller.adminController">
+
+  <children>
+
+    <!-- Gestión de Empleados -->
+    <AnchorPane fx:id="adminEmp" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+          <Label style="-fx-font-size: 26px;" text="Gestión de Empleados" />
+          <HBox alignment="CENTER" spacing="20.0">
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="Registrar Empleado" />
+              <Label text="Nombre" />
+              <TextField fx:id="newName" />
+              <Label text="Documento" />
+              <TextField fx:id="newDoc" />
+              <Label text="Correo" />
+              <TextField fx:id="newEmail" />
+              <Label text="Contraseña" />
+              <TextField fx:id="newPass" />
+              <Button fx:id="regEmpBtn" onAction="#onReg" text="Registrar" />
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="Eliminar Empleado" />
+              <Label text="Documento" />
+              <TextField fx:id="delDoc" />
+              <Button fx:id="delBtn" onAction="#onDel" text="Eliminar" />
+            </VBox>
+            <Accordion fx:id="empAcc" prefWidth="200" />
+          </HBox>
+        </VBox>
+        <Button fx:id="regBtn1" onAction="#onPrev" text="Regresar" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+      </children>
+    </AnchorPane>
+
+    <!-- Gestión del Parqueadero -->
+    <AnchorPane fx:id="adminPar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+          <Label text="Gestión del Parqueadero" />
+          <HBox alignment="CENTER" spacing="20.0">
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="Ajuste de Tarifas" />
+              <Label text="Tarifa para Carros" />
+              <TextField fx:id="newTarC" />
+              <Label text="Tarifa para Motos" />
+              <TextField fx:id="newTarM" />
+              <Button fx:id="tarifBtn" onAction="#onTarifa" text="Hacer Cambios" />
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="Estructura del Parqueadero" />
+              <Label text="Número de pisos" />
+              <Spinner fx:id="numPisoSP" />
+              <ScrollPane fitToHeight="true" fitToWidth="true">
+                <content>
+                  <Accordion fx:id="pisosAcc" />
+                </content>
+              </ScrollPane>
+              <Button fx:id="pisoGenBtn" onAction="#onGenerarPiso" text="Generar Pisos" />
+              <Button fx:id="EstBtn" onAction="#onEstructura" text="Hacer Cambios" />
+            </VBox>
+          </HBox>
+        </VBox>
+        <Button fx:id="regBtn2" onAction="#onPrev" text="Regresar" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+      </children>
+    </AnchorPane>
+
+    <!-- Estadísticas -->
+    <AnchorPane fx:id="adminEst" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+          <Label text="Menú de Estadísticas" />
+          <HBox alignment="CENTER" spacing="40.0">
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="Ingresos de Hoy" />
+              <Label fx:id="totalIng" text="Total" />
+              <Label fx:id="carIng" text="Carros" />
+              <Label fx:id="motoIng" text="Motos" />
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="10.0">
+              <Label text="No. de Clientes" />
+              <Label fx:id="totalNo" text="Total" />
+              <Label fx:id="carNo" text="Carros" />
+              <Label fx:id="motoNo" text="Motos" />
+            </VBox>
+          </HBox>
+        </VBox>
+        <Button fx:id="updBtn" onAction="#onUpdate" text="Actualizar" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+        <Button fx:id="regBtn3" onAction="#onPrev" text="Regresar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      </children>
+    </AnchorPane>
+
+    <!-- Menú Principal -->
+    <AnchorPane fx:id="adminMain" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+          <Label fx:id="bienvenidoLbl" style="-fx-font-size: 30px;" text="Bienvenido..." />
+          <HBox alignment="CENTER" spacing="40.0">
+            <VBox alignment="CENTER" spacing="20.0">
+              <Button fx:id="gestEmp" onAction="#onGestEmp" text="Gestionar Empleados" />
+              <Button fx:id="gestPar" onAction="#onGestPar" text="Gestionar Parqueadero" />
+            </VBox>
+            <Button fx:id="onEsta" onAction="#onEstadistica" text="Consultar estadísticas" />
+            <Accordion fx:id="estAcc" />
+          </HBox>
+        </VBox>
+        <MenuButton fx:id="openBtn" text="Abrir/Cerrar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="120.0">
+          <items>
+            <RadioMenuItem fx:id="encenderItem" onAction="#onEncender" text="Encender" />
+            <RadioMenuItem fx:id="apagarItem" onAction="#onApagar" text="Apagar" />
+          </items>
+        </MenuButton>
+        <Button fx:id="volverBtn" onAction="#onBack" text="Regresar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      </children>
+    </AnchorPane>
+
+  </children>
+</AnchorPane>
